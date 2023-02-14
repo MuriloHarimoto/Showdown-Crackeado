@@ -46,6 +46,8 @@ class pokemon_class:
             marg = 0.80
         
         damage = (((((2*50/5+2)*self.attack*move.power/enemy.defense)/50)+2)*stab*weakres*crit)*marg
+
+        enemy.hp -= damage
             
 
 class attack_class:
