@@ -1,6 +1,6 @@
 import requests
 import random
-from classes import pokemon_class, attack_class
+from classes import pokemon_class, attack_class, tipos_class
 
 team = []
 api = 'https://pokeapi.co/api/v2/'
@@ -25,6 +25,16 @@ def get_attack(name):
     else:
         return None
 
+def get_mod(type):
+    apitype = requests.get(f'{api}/type/{type}')
+
+    if apitype.status_code == 200:
+        return apitype.json()
+    elif apitype.status_code == 404:
+        print("FATAL ERROR")
+    else:
+        return None
+
 while True:
     max_team = 0
     pokemon = input("Qual o Pokémon?: ").lower()
@@ -34,14 +44,38 @@ while True:
     print(poke_in_api['name'], f"#{poke_in_api['id']}")
 
     if poke_in_api:
+        prov_types_list = []
         types_list = []
         stats_list = []
         moves_list = []
         cont = 1
+
         for types in poke_in_api['types']:
             print(f"Type {cont}: {types['type']['name']}")
-            types_list.append(types['type']['name'])
+            prov_types_list.append(types['type']['name'])
             cont+=1
+        for x in prov_types_list:
+            type_in_api = get_mod(x)
+            weaks = []
+            resists = []
+            weaks_full = []
+            resists_full = []
+            imuns = []
+            for weak in type_in_api['damage_relations']['double_damage_from']:
+                for y in weak:
+                    weaks.append(weak['name'])
+                    weaks_full.append(weak['name'])                    
+            for resist in type_in_api['damage_relations']['half_damage_from']:
+                for y in resist:
+                    resists.append(resist['name'])
+                    resists.append(resist['name'])
+            for imun in type_in_api['damage_relations']['no_damage_from']:
+                for y in imun:
+                    imuns.append(imun['name'])
+
+            z = tipos_class(x, weaks_full, resists_full, imuns)
+            types_list.append(z)
+
         total = 0
         for stat in poke_in_api['stats']:
             print(f"{stat['stat']['name']}: {stat['base_stat']}")
@@ -77,7 +111,7 @@ while True:
 
     choose_attack()
 
-    pokemon = pokemon_class(poke_in_api['name'], types_list, stats_list[0], stats_list[1], stats_list[2], stats_list[3], stats_list[4], stats_list[5], moveset, choices)
+    pokemon = pokemon_class(poke_in_api['name'], 50, types_list, stats_list[0], stats_list[1], stats_list[2], stats_list[3], stats_list[4], stats_list[5], moveset, choices, weaks, resists)
 
     team.append(pokemon)
 
@@ -95,5 +129,9 @@ while True:
 
 for x in team:
     print(f"{x.name} / {x.hp}/{x.hp} HP")
+    print(f"Weaks: {x.wk}")
+    print(f"Resists: {x.rs}")
+    for z in x.types:
+        print(f"Immunties: {z.immunity}")
     for y in x.movebattle:
         print(f"{y.name}: Tipo {y.type} com {y.power} de Poder")
