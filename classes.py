@@ -1,7 +1,7 @@
 import random
 
 class pokemon_class:
-    def __init__(self, name, lvl, types, hp, attack, defense, special_attack, special_defense, speed, attacks, movebattle, wk, rs):
+    def __init__(self, name, lvl, types, hp, attack, defense, special_attack, special_defense, speed, attacks, movebattle, wk, rs, imun):
         self.name = name
         self.lvl = lvl
         self.types = types
@@ -15,6 +15,7 @@ class pokemon_class:
         self.movebattle = movebattle
         self.wk = wk
         self.rs = rs
+        self.imun = imun
 
 #Calculo do Dano
 
@@ -38,6 +39,8 @@ class pokemon_class:
             weakres = 2
         elif move.type in enemy.rs:
             weakres = 0.5
+        elif move.type in enemy.imun:
+            weakres = 0
         else:
             weakres = 1
 

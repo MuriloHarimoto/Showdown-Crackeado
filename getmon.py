@@ -41,7 +41,6 @@ def create_team(team):
     while True:
         max_team = 0
         pokemon = input("Qual o Pokémon?: ").lower()
-        # pokemon = random.randint(1,1008)
         poke_in_api = get_pokemon(pokemon)
 
         print(poke_in_api['name'], f"#{poke_in_api['id']}")
@@ -114,7 +113,7 @@ def create_team(team):
 
         choose_attack()
 
-        pokemon = pokemon_class(poke_in_api['name'], 50, types_list, stats_list[0], stats_list[1], stats_list[2], stats_list[3], stats_list[4], stats_list[5], moveset, choices, weaks, resists)
+        pokemon = pokemon_class(poke_in_api['name'], 50, types_list, stats_list[0], stats_list[1], stats_list[2], stats_list[3], stats_list[4], stats_list[5], moveset, choices, weaks, resists, imuns)
 
         team.append(pokemon)
 
