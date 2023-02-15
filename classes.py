@@ -18,8 +18,11 @@ class pokemon_class:
 
 #Calculo do Dano
 
-
     def use_attack(self, move, enemy):
+        stab = 1
+        weakres = 1
+        crit = 1
+        
         for x in self.types:
             if move.type == x:
                 stab = 1.5
@@ -31,7 +34,7 @@ class pokemon_class:
 
         if crit_calc in crit_range:
             crit = 1.5
-        if move.type in enemy.ws:
+        if move.type in enemy.wk:
             weakres = 2
         elif move.type in enemy.rs:
             weakres = 0.5
