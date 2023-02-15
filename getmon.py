@@ -1,7 +1,6 @@
 import requests
 import random
-from classes import pokemon_class, attack_class, tipos_class
-from battle import battle
+from classes import pokemon_class, attack_class, tipos_class, battle
 
 team1 = []
 team2 = []
@@ -64,15 +63,12 @@ def create_team(team):
                 resists_full = []
                 imuns = []
                 for weak in type_in_api['damage_relations']['double_damage_from']:
-                    for y in weak:
                         weaks.append(weak['name'])
                         weaks_full.append(weak['name'])                    
                 for resist in type_in_api['damage_relations']['half_damage_from']:
-                    for y in resist:
                         resists.append(resist['name'])
                         resists.append(resist['name'])
                 for imun in type_in_api['damage_relations']['no_damage_from']:
-                    for y in imun:
                         imuns.append(imun['name'])
 
                 z = tipos_class(x, weaks_full, resists_full, imuns)
