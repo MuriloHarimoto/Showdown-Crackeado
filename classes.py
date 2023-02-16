@@ -79,12 +79,12 @@ def choose_attack(p):
 def battle(team1, team2):
     for i, pokemon in enumerate(team1):
         print(f"{i + 1}: {pokemon.name}")
-        current_mon_p1 = int(input('P1, escolha seu Pokémon (N°): '))
-        p1 = team1[current_mon_p1-1]
+    current_mon_p1 = int(input('P1, escolha seu Pokémon (N°): '))
+    p1 = team1[current_mon_p1-1]
     for i, pokemon in enumerate(team2):
         print(f"{i + 1}: {pokemon.name}")
-        current_mon_p2 = int(input('P2, escolha seu Pokémon (N°): '))
-        p2 = team2[current_mon_p2-1]
+    current_mon_p2 = int(input('P2, escolha seu Pokémon (N°): '))
+    p2 = team2[current_mon_p2-1]
 
     print(f"A battle between {current_mon_p1} and {current_mon_p2} has started")
     while p1.hp > 0 and p2.hp > 0:

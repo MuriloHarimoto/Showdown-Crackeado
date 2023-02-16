@@ -37,6 +37,7 @@ def get_mod(type):
         return None
     
 def create_team(team):
+    global pokemon
     while True:
         max_team = 0
         pokemon = input("Qual o Pokémon?: ").lower()
@@ -70,7 +71,11 @@ def create_team(team):
                         resists.append(resist['name'])
                 for imun in type_in_api['damage_relations']['no_damage_from']:
                         imuns.append(imun['name'])
-
+                for x in weaks_full:
+                    for y in resists_full:
+                        if x == y:
+                            weaks.pop(x)
+                            resists.pop(x)
                 z = tipos_class(x, weaks_full, resists_full, imuns)
                 types_list.append(z)
 
@@ -126,6 +131,11 @@ def create_team(team):
             continue
     
 create_team(team1)
+for x in pokemon.types:
+    print(x.weaknesses)
+    print(x.resistances)
+    print(x.immunity)
+
 create_team(team2)
 
 battle(team1, team2)
